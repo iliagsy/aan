@@ -1,4 +1,13 @@
 # coding: utf-8
+'''
+用法：作为脚本run，在release/2013/中产生
+    sg_venue_network_weight.txt,
+        （tab分隔，col1 link to col2, with weight col3）
+    sg_venue_network.txt,
+    sg_venue_outcites.txt,
+    sg_venue_outcites_nonself.txt,
+    四个文件
+'''
 import numpy as np
 
 from consts import base_dir
@@ -99,7 +108,7 @@ def map_venue2outcite_num(non_self=False):
 def gen_venue_link_mat(venue2vid, venue2outcite):
     '''
     @return: 公式中的矩阵H
-    不考虑同一种引用关系的引用次数
+    （不考虑同一种引用关系的引用次数）
     '''
     n_node = len(venue2vid[0])
     linkMat = np.zeros((n_node, n_node))
