@@ -6,7 +6,9 @@ def get_init_I(nNode):
 
 def get_calced_I(H, old_I, alpha=0.85):
     '''
-    @param: H: shape = (nNode, nNode), dtype = double;
+    @param:
+    H: shape = (nNode, nNode), dtype = double;
+        (H is the original hyperlink matrix)
     old_I: shape = (nNode), dtype = double
     @return: new-round I
     '''
@@ -14,7 +16,7 @@ def get_calced_I(H, old_I, alpha=0.85):
     assert shape[0] == shape[1] and shape[0] == len(old_I)
     nNode = shape[0]
     # Generate row of the matrix I used to add random-click possib.
-    # of dangling nodes
+    # of dangling nodes (correspond to cols in H with all 0s)
     # and the remaining nodes.
     row = np.zeros(nNode, dtype=double)
     Sum = np.add.reduce(H, axis=0)
