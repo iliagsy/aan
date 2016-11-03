@@ -1,8 +1,10 @@
 # coding: utf-8
 import numpy as np
+import numpy.testing as npt
+from numpy import double
 
 def get_init_I(nNode):
-    return np.rand(nNode)
+    return np.random.rand(nNode)
 
 def get_calced_I(H, old_I, alpha=0.85):
     '''
@@ -29,11 +31,12 @@ def get_calced_I(H, old_I, alpha=0.85):
     I += alpha * np.dot(H, old_I)
     # Normalize, make sure sum to 1
     I /= np.add.reduce(I)
-    assert I.sum() == 1
+    npt.assert_almost_equal(I.sum(), 1)
     return I
 
-def calc_pagerank(H, nNode, iter_times=10):
-    assert nNode == H.shape[0]
+
+def calc_pagerank(H, iter_times=10):
+    nNode = H.shape[0]
     I = get_init_I(nNode)
     for i in range(iter_times):
         I = get_calced_I(H, I)

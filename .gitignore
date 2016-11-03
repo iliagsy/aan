@@ -2,3 +2,6 @@ papers_text/*
 release/*
 
 .DS_Store
+
+*.pyc
+

@@ -10,7 +10,7 @@ def map_author2aid():
     '''
     aid_set = set()
     aid_lst = []
-    dir_ = base_dir + 'release/2013/author_citation_network.txt'
+    dir_ = base_dir + 'release/2012/author_citation_network.txt'
     for line in open(dir_).readlines():
         for aid in line.rstrip().split(' ==> '):
             if aid not in aid_set:
@@ -22,9 +22,9 @@ def map_author2aid():
 
 def map_author2outcite_num(non_self=False):
     a2o_dict = dict()
-    dir_ = base_dir + 'release/2013/author_outcites.txt'
+    dir_ = base_dir + 'release/2012/author_outcites.txt'
     if non_self:
-        dir_ = base_dir + 'release/2013/author_outcites_nonself.txt'
+        dir_ = base_dir + 'release/2012/author_outcites_nonself.txt'
     for line in open(dir_).readlines():
         aid, num_raw = line.rstrip().split()
         num = int(num_raw)
@@ -39,10 +39,10 @@ def gen_author_link_mat(author2aid, author2outcite):
     n_node = len(author2aid[0])
     linkMat = np.zeros((n_node, n_node))
 
-    dir_ = base_dir + 'release/2013/author_citation_network.txt'
+    dir_ = base_dir + 'release/2012/author_citation_network.txt'
     for line in open(dir_).readlines():
         aid1, aid2 = line.rstrip().split(' ==> ')
         a1_out = author2outcite.get(aid1)
-        id1, id2 = map(author2pid.get, [aid1, aid2])
+        id1, id2 = map(author2aid[0].get, [aid1, aid2])
         linkMat[id2][id1] = 1. / a1_out
     return linkMat
