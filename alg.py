@@ -22,7 +22,7 @@ def get_calced_I(H, old_I, alpha=0.85):
     # and the remaining nodes.
     row = np.zeros(nNode, dtype=double)
     Sum = np.add.reduce(H, axis=0)
-    row[Sum == 0] = 1. / nNode
+    row[Sum == 0] = np.add.reduce(old_I[Sum == 0]) * alpha / nNode
     row[Sum != 0] = (1. - alpha) / nNode
     # Now calculate A*old_I
     I = np.zeros(nNode, dtype=double)

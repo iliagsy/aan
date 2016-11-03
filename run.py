@@ -34,7 +34,9 @@ def get_n_save_PR(item, non_self=False, iter_times=10):
     PR = calc_pagerank(H, iter_times)
     nonself_mark = '_ns' if non_self else ''
     np.savetxt(base_dir + ('%s_PageRankVec%s_%d.txt'
-                           % (item, nonself_mark, iter_times)), PR)
+                           % (item, nonself_mark, iter_times)),
+               PR,
+               fmt='%.5f')
     np.save(base_dir + ('%s_PageRankVec%s_%d.npy'
                         % (item, nonself_mark, iter_times)), PR)
 
