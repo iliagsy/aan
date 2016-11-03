@@ -28,7 +28,7 @@ def get_n_save_PR(item, non_self=False, iter_times=10):
         )
     elif item == 'venue':
         H = gen_venue_link_mat(
-            map_venue2vid(),
+            map_venue2vid(map_paper2venue()),
             map_venue2outcite_num(non_self)
         )
     PR = calc_pagerank(H, iter_times)
@@ -40,8 +40,7 @@ def get_n_save_PR(item, non_self=False, iter_times=10):
 
 
 if __name__ == '__main__':
-    for item in ('paper', 'author', 'venue'):
-        # for NS in (False, True):
-        NS = True
-        for iter_times in range(10, 51, 10):
-            get_n_save_PR(item, NS, iter_times)
+    for item in ('venue', 'paper', 'author'):
+        for NS in (False, True):
+            for iter_times in range(10, 51, 10):
+                get_n_save_PR(item, NS, iter_times)

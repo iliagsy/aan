@@ -20,7 +20,7 @@ def map_venue2vid(paper2venue):
     '''
     vid_set = set()
     vid_lst = []
-    dir_ = base_dir + 'release/2012/acl.txt'
+    dir_ = base_dir + 'release/2013/acl.txt'
     for line in open(dir_).readlines():
         for pid in line.rstrip().split(' ==> '):
             vid = paper2venue.get(pid)
@@ -35,7 +35,7 @@ def get_venue_link(paper2venue, venue2vid):
     '''
     @return: [(va, vb, n), ...] - va links to vb, n times
     '''
-    dir_ = base_dir + 'release/2012/acl.txt'
+    dir_ = base_dir + 'release/2013/acl.txt'
     linkData = {}
     for line in open(dir_).readlines():
         pid1, pid2 = line.rstrip().split(' ==> ')
@@ -77,7 +77,7 @@ def map_paper2venue():
     '''
     @return: 从paper_id到venue名字的映射dict
     '''
-    dir_ = base_dir + 'release/2012/acl-metadata.txt'
+    dir_ = base_dir + 'release/2013/acl-metadata.txt'
     p2v_map = dict()
     # lol - list of lists
     lol = [p.split('\n') for p in open(dir_).read().split('\n\n')]
@@ -101,6 +101,8 @@ def map_venue2outcite_num(non_self=False):
     for line in open(dir_).readlines():
         vid, num_raw = line.rstrip().split()
         num = int(num_raw)
+        if num == 0:
+            continue
         v2o_dict[int(vid)] = num
     return v2o_dict
 
@@ -117,7 +119,7 @@ def gen_venue_link_mat(venue2vid, venue2outcite):
     for line in open(dir_).readlines():
         vid1, vid2 = line.rstrip().split(' ==> ')
         id1, id2 = int(vid1), int(vid2)
-        v1_out = venue2outcite.get(id1)
+        v1_out = venue2outcite.get(id1, np.inf)
         linkMat[id2][id1] = 1. / v1_out
     return linkMat
 
